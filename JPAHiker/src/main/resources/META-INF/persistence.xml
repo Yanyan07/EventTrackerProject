@@ -4,7 +4,10 @@
 	
 	<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
     
-	<class>com.skilldistillery.hiker.entities</class>
+	<class>com.skilldistillery.hiker.entities.Hiker</class>
+	<class>com.skilldistillery.hiker.entities.SingleHiking</class>
+	<class>com.skilldistillery.hiker.entities.Trail</class>
+	<class>com.skilldistillery.hiker.entities.Location</class>
 	
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/hikerdb?useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=US/Mountain" />

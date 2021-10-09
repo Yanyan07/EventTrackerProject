@@ -1,9 +1,6 @@
 package com.skilldistillery.hiker.entities;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import java.util.List;
+import static org.junit.jupiter.api.Assertions.*;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -14,11 +11,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class HikerTest {
-	
+class SingleHikingTest {
+
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Hiker hiker;
+	private SingleHiking singleHiking;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -33,31 +30,32 @@ class HikerTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		hiker = em.find(Hiker.class, 1);
+		singleHiking = em.find(SingleHiking.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		hiker = null;
+		singleHiking = null;
 	}
 
 	@Test
 	void test() {
-		assertNotNull(hiker);
-		assertEquals("hanna", hiker.getName());
-
+		assertNotNull(singleHiking);
+		assertEquals(2, singleHiking.getDistance());
 	}
 	
 	@Test
-	@DisplayName("test hiker singleHiking mapping")
-	void test_hiker_singleHiking() {
-		assertNotNull(hiker);
-		List<SingleHiking> hikings = hiker.getSingleHikings();
-		assertNotNull(hikings);
-		assertTrue(hikings.size() > 0);
-		assertEquals(2, hikings.get(0).getDistance());
-		assertEquals(1, hikings.get(0).getHikingDate().getDayOfMonth());
+	@DisplayName("test singleHiking hiker mapping")
+	void test_singleHiking_hiker() {
+		assertNotNull(singleHiking);
+		assertEquals(1, singleHiking.getHiker().getId());
 	}
-
+	
+	@Test
+	@DisplayName("test singleHiking trail mapping")
+	void test_singleHiking_trail() {
+		assertNotNull(singleHiking);
+		assertEquals(1, singleHiking.getTrail().getId());
+	}
 }

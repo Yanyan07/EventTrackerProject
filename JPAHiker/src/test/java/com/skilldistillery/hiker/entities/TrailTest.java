@@ -1,8 +1,6 @@
 package com.skilldistillery.hiker.entities;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -14,11 +12,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class HikerTest {
-	
+class TrailTest {
+
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Hiker hiker;
+	private Trail trail;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -33,31 +31,30 @@ class HikerTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		hiker = em.find(Hiker.class, 1);
+		trail = em.find(Trail.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		hiker = null;
+		trail = null;
 	}
 
 	@Test
 	void test() {
-		assertNotNull(hiker);
-		assertEquals("hanna", hiker.getName());
-
+		assertNotNull(trail);
+		assertEquals("Emerald Lake Trail", trail.getName());
 	}
 	
 	@Test
-	@DisplayName("test hiker singleHiking mapping")
-	void test_hiker_singleHiking() {
-		assertNotNull(hiker);
-		List<SingleHiking> hikings = hiker.getSingleHikings();
+	@DisplayName("test trail singleHiking mapping")
+	void test_trail_singleHiking() {
+		assertNotNull(trail);
+		List<SingleHiking> hikings = trail.getSingleHikings();
 		assertNotNull(hikings);
 		assertTrue(hikings.size() > 0);
 		assertEquals(2, hikings.get(0).getDistance());
-		assertEquals(1, hikings.get(0).getHikingDate().getDayOfMonth());
+		assertEquals(5, hikings.get(1).getHikingDate().getDayOfMonth());
 	}
 
 }

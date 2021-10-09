@@ -1,10 +1,12 @@
 package com.skilldistillery.hiker.entities;
 
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Hiker {
@@ -12,9 +14,12 @@ public class Hiker {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
 	private String name;
-
+	private String gender;
+	
+	@OneToMany(mappedBy="hiker")
+	private List<SingleHiking> singleHikings;
+	
 	public Hiker() {
 		super();
 	}
@@ -22,7 +27,6 @@ public class Hiker {
 	public int getId() {
 		return id;
 	}
-
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -30,9 +34,22 @@ public class Hiker {
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	
+	public List<SingleHiking> getSingleHikings() {
+		return singleHikings;
+	}
+	public void setSingleHikings(List<SingleHiking> singleHikings) {
+		this.singleHikings = singleHikings;
 	}
 
 	@Override
@@ -54,7 +71,7 @@ public class Hiker {
 
 	@Override
 	public String toString() {
-		return "Hiker [id=" + id + ", name=" + name + "]";
+		return "Hiker [id=" + id + ", name=" + name + ", gender=" + gender + "]";
 	}
-	
+
 }
