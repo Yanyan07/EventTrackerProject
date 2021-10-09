@@ -29,10 +29,10 @@ public class SingleHikingController {
 		return hikings;
 	}
 	
-	@GetMapping("hikings/{id}")
-	public List<SingleHiking> getHikingByHiker(@PathVariable Integer id,
+	@GetMapping("hikings/{hikerId}")
+	public List<SingleHiking> getHikingByHiker(@PathVariable Integer hikerId,
 												HttpServletResponse res){
-		List<SingleHiking> hikings = hikingSvc.findHikingForHiker(id);
+		List<SingleHiking> hikings = hikingSvc.findHikingForHiker(hikerId);
 		if(hikings == null) {
 			res.setStatus(404);
 		}

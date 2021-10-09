@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.skilldistillery.hiker.entities.SingleHiking;
 import com.skilldistillery.hiker.entities.Trail;
-import com.skilldistillery.hiker.repositories.HikerRepository;
 import com.skilldistillery.hiker.repositories.SingleHikingRepository;
 import com.skilldistillery.hiker.repositories.TrailRepository;
 
