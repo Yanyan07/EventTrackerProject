@@ -31,6 +31,11 @@ public class SingleHikingServiceImpl implements SingleHikingService {
 		return hikingRepo.findByHiker_Id(hikerId);
 	}
 	
+	@Override
+	public List<SingleHiking> findHikingForTrail(int trailId){
+		return hikingRepo.findByTrail_Id(trailId);
+	}
+	
 	@Override   
 	public SingleHiking createHiking(int hikerId, int trailId, 
 									 SingleHiking singleHiking) {

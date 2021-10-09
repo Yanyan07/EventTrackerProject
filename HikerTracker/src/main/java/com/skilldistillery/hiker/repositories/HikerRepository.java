@@ -5,4 +5,5 @@ import com.skilldistillery.hiker.entities.Hiker;
 
 public interface HikerRepository extends JpaRepository<Hiker, Integer> {
 
+	
 }

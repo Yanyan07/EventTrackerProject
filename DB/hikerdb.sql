@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `single_hiking` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `hiker_id` INT NOT NULL,
   `trail_id` INT NOT NULL,
-  `distance` DECIMAL NULL,
+  `distance` DECIMAL(5,2) NULL,
   `hiking_date` DATE NULL,
   INDEX `fk_hiker_trail_hiker1_idx` (`hiker_id` ASC),
   INDEX `fk_hiker_trail_trail1_idx` (`trail_id` ASC),
