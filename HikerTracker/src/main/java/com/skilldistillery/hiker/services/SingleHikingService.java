@@ -14,5 +14,7 @@ public interface SingleHikingService {
 	boolean deleteHiking(int hikerId, int hikingId);
 
 	List<SingleHiking> findHikingForTrail(int trailId);
+
+	SingleHiking updateHiking(int hikerId, int trailId, int hikingId, SingleHiking singleHiking);
 	
 }

@@ -16,15 +16,16 @@ This application tracked a hiker's activities. We can track a hiker's hiking dis
 It was a challenge to draw the EER Diagram of different tables. I spent a while to learn this tool and make it work perfect.
 
 ### Illustration
-* GET api/hikings   --->                                  Get all hiking events
-* GET api/hiking/{hikerId}    --->                        Get all hiking events by hiker id
-* POST api/hikings/{hikerId}/{trailId}/hiking --->        Create a new SingleHiking
-* DELETE api/hikings/{hikerId}/{hikingId}/hiking  --->    Delete an existing SingleHiking by hiker id and SingleHiking id
+* GET api/hikings   ---->                                  Get all hiking events
+* GET api/hiking/{hikerId}    ---->                        Get all hiking events by hiker id
+* POST api/hikings/{hikerId}/{trailId}/hiking ---->        Create a new SingleHiking
+* PUT hikings/{hikerId}/{trailId}/{hikingId}/hiking ---->  Update an existing SingleHiking by hiker id trail id and SingleHiking id
+* DELETE api/hikings/{hikerId}/{hikingId}/hiking  ---->    Delete an existing SingleHiking by hiker id and SingleHiking id
 
-* GET api/hikers              --->                        Gets all hikers
-* GET api/hikers/distance/{hikerId}   --->                Get total hiking distance by hiker id
-* Get api/hikers/favorite/{hikerId}   --->                Get favorite trail by hiker id
+* GET api/hikers              ---->                        Gets all hikers
+* GET api/hikers/distance/{hikerId}   ---->                Get total hiking distance by hiker id
+* Get api/hikers/favorite/{hikerId}   ---->                Get favorite trail by hiker id
  (the favorite trail is decided by the hiking times, if the hiking times is the same, then it is decided by the hiking distance)
 
-* GET api/trails       --->                               Get all trails
-* GET api/trails.popular     --->                         Get the popular trail(decided by hiking times)
+* GET api/trails       ---->                               Get all trails
+* GET api/trails.popular     ---->                         Get the popular trail(decided by hiking times)

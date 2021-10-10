@@ -50,6 +50,22 @@ public class SingleHikingServiceImpl implements SingleHikingService {
 			return singleHiking;
 		}
 	}
+	
+	@Override
+	public SingleHiking updateHiking(int hikerId, int trailId, int hikingId,
+			SingleHiking singleHiking) {
+		Optional<Hiker> hikerOpt = hikerRepo.findById(hikerId);
+		Optional<Trail> trailOpt = trailRepo.findById(trailId);
+		if(!hikerOpt.isPresent() || !trailOpt.isPresent()) {
+			return null;
+		}else {
+			singleHiking.setId(hikingId);
+			singleHiking.setHiker(hikerOpt.get());
+			singleHiking.setTrail(trailOpt.get());
+			hikingRepo.saveAndFlush(singleHiking);
+			return singleHiking;
+		}
+	}
 
 	@Override
 	public boolean deleteHiking(int hikerId, int hikingId) {
@@ -57,7 +73,7 @@ public class SingleHikingServiceImpl implements SingleHikingService {
 		SingleHiking singleHiking = hikingRepo.findByHiker_IdAndId(hikerId, hikingId);
 		if(singleHiking != null) {
 			hikingRepo.delete(singleHiking);
-			deleted = true;
+			deleted = !hikingRepo.existsById(hikingId);
 		}
 		return deleted;
 	}
