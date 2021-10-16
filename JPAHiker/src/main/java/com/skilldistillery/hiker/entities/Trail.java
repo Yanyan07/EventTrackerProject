@@ -26,6 +26,7 @@ public class Trail {
 	@Column(name="image_url")
 	private String imageUrl;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="trail")
 	private List<SingleHiking> singleHikings;
 	

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<script src="js/script.js"></script>
+</head>
+<body>
+
+	<h1>Welcome To Hiker Tracker</h1>
+	<hr>
+
+	<form name="hikersForm">
+		<button name="findAll">Show All Hikers</button>
+	</form>
+	<br/>
+
+	<div id="output">
+		<div id="hikersData"></div>
+		<br/>
+		<div id="hikeData">
+			<table id="hikeTable">
+				<thead id="hikeThead">
+				</thead>
+				<tbody id="hikeTbody">
+				</tbody>
+			</table>
+		</div>
+		<div id="createData"></div>
+		<div id="deleteData"></div>
+		<div id="updateData"></div>
+	</div>
+	<br/>
+	<form name="createForm">
+		<input type="number" name="hikerId" placeholder="Hiker Id" /><br/>
+		<input type="number" name="trailId" placeholder="Trail Id" /><br/>
+		<input type="text" name="distance" placeholder="Distance" /><br/>
+		<input type="date" name="hikeDate" placeholder="Hike Date" /><br/>
+		<button name="addHike">Add Hike</button>
+	</form>
+	<br/>
+
+	<form name="updateForm">
+		<input type="number" name="hikerId" placeholder="Hiker Id" /><br/>
+		<input type="number" name="trailId" placeholder="Trail Id" /><br/>
+		<input type="number" name="hikeId" placeholder="Hike Id" /><br/>
+		<input type="text" name="distance" placeholder="Distance" /><br/>
+		<input type="date" name="hikeDate" placeholder="Hike Date" /><br/>
+		<button name="updateHike">Update Hike</button>
+	</form>
+	
+</body>
+</html>

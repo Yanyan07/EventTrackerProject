@@ -26,12 +26,12 @@ public class SingleHiking {
 	@Column(name="hiking_date")
 	private LocalDate hikingDate;
 	
-	@JsonIgnore
+	//@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="hiker_id")
 	private Hiker hiker;
 	
-	@JsonIgnore
+	//@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="trail_id")
 	private Trail trail;

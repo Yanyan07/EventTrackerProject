@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Hiker {
 
@@ -17,6 +19,7 @@ public class Hiker {
 	private String name;
 	private String gender;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="hiker")
 	private List<SingleHiking> singleHikings;
 	
