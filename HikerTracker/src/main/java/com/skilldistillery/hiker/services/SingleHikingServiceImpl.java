@@ -56,7 +56,8 @@ public class SingleHikingServiceImpl implements SingleHikingService {
 			SingleHiking singleHiking) {
 		Optional<Hiker> hikerOpt = hikerRepo.findById(hikerId);
 		Optional<Trail> trailOpt = trailRepo.findById(trailId);
-		if(!hikerOpt.isPresent() || !trailOpt.isPresent() ||singleHiking==null) {
+		Optional<SingleHiking> hikingOpt = hikingRepo.findById(hikingId);
+		if(!hikerOpt.isPresent() || !trailOpt.isPresent() || !hikingOpt.isPresent()) {
 			return null;
 		}else {
 			singleHiking.setId(hikingId);

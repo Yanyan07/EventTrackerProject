@@ -20,19 +20,6 @@ function init(){
 		};
 		postNewHike(newHike);
 	});
-
-	document.updateForm.updateHike.addEventListener('click', function(event){
-		event.preventDefault();
-		let uf = document.updateForm;
-		let updateHike = {
-			hikerId: uf.hikerId.value,
-			trailId: uf.trailId.value,
-			hikeId: uf.hikeId.value,
-			distance: uf.distance.value,
-			hikingDate: uf.hikeDate.value 
-		};
-		updateHikeActivity(updateHike);
-	});
 }
 
 //hikings/{hikerId}/{trailId}/hiking
@@ -53,25 +40,6 @@ function postNewHike(newHike){
 	};
 	xhr.setRequestHeader('Content-type', 'application/json');
 	xhr.send(JSON.stringify(newHike));
-}
-
-//hikings/{hikerId}/{trailId}/{hikingId}/hiking
-function updateHikeActivity(updateHike){
-	let xhr = new XMLHttpRequest();
-	xhr.open('PUT', `api/hikings/${updateHike.hikerId}/${updateHike.trailId}/${updateHike.hikeId}/hiking`);
-	xhr.onreadystatechange = function(){
-		if(xhr.readyState === 4){
-			if(xhr.status===200 || xhr.status===201){
-				let hike = JSON.parse(xhr.responseText);
-				getAllHikeActivities(hike.hiker.id);
-			}else{
-				let update = document.getElementById('updateData');
-				update.textContent = 'Fail to update hike activity!';
-			}
-		}
-	};
-	xhr.setRequestHeader('Content-type', 'application/json');
-	xhr.send(JSON.stringify(updateHike));
 }
 
 
@@ -115,6 +83,7 @@ function displayHikers(hikers){
 	table.appendChild(tbody);
 	for(let hiker of hikers){
 		tr = document.createElement('tr');
+		tbody.appendChild(tr);
 		let td = document.createElement('td');
 		td.textContent = hiker.id;
 		tr.appendChild(td);
@@ -124,16 +93,67 @@ function displayHikers(hikers){
 		td = document.createElement('td');
 		td.textContent = hiker.gender;
 		tr.appendChild(td);
+
 		let button = document.createElement('button');
 		button.textContent = 'All Hike Details';
 		tr.appendChild(button);
-		tbody.appendChild(tr);
-		
 		button.addEventListener('click',function(event){
 			event.preventDefault();
 			getAllHikeActivities(hiker.id);
 		});
+
+		button = document.createElement('button');
+		button.textContent = 'Total Distance';
+		tr.appendChild(button);
+		button.addEventListener('click', function(event){
+			event.preventDefault();
+			getHikeDistance(hiker);
+		});
+
+		button = document.createElement('button');
+		button.textContent = 'Favorite Trail';
+		tr.appendChild(button);
+		button.addEventListener('click', function(event){
+			event.preventDefault();
+			getFavoriteTrail(hiker);
+		});
 	}
+}
+//hikers/distance/{hikerId}
+function getHikeDistance(hiker){
+	let xhr = new XMLHttpRequest();
+	xhr.open('GET', 'api/hikers/distance/'+hiker.id);
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState === 4){
+			let distanceData = document.getElementById('distanceData');
+			if(xhr.status === 200){
+				let distance = JSON.parse(xhr.responseText);
+				distanceData.textContent = `The totol hike distance for ${hiker.name} is ${distance} miles.`;
+			}else{	
+				distanceData.textContent = 'No distance found!';
+			}
+		}
+	}
+	xhr.send(null);
+}
+
+//hikers/favorite/{hikerId}
+function getFavoriteTrail(hiker){
+	let xhr = new XMLHttpRequest();
+	xhr.open('GET', 'api/hikers/favorite/'+hiker.id);
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState === 4){
+			let favoriteData = document.getElementById('favoriteData');
+			favoriteData.textContent = '';
+			if(xhr.status === 200){
+				let favorite = JSON.parse(xhr.responseText);
+				favoriteData.textContent = `The favorite trail of ${hiker.name} is ${favorite.name}.(decided by hike times, then hike distance)`;
+			}else{	
+				favoriteData.textContent = 'No favorite trail found!';
+			}
+		}
+	}
+	xhr.send(null);
 }
 //hikings/{hikerId}
 function getAllHikeActivities(hikerId){
@@ -156,11 +176,11 @@ function getAllHikeActivities(hikerId){
 function displayHikeActivities(hikeItems){
 	let hikeData = document.getElementById('hikeData');
 	let thead = document.getElementById('hikeThead');
-	while(thead!=null && thead.firstElementChild){
+	while(thead.firstElementChild){
 		thead.removeChild(thead.firstElementChild);
 	}
 	let tbody = document.getElementById('hikeTbody');
-	while(tbody!=null && tbody.firstElementChild){
+	while(tbody.firstElementChild){
 		tbody.removeChild(tbody.firstElementChild);
 	}
 
@@ -206,11 +226,32 @@ function displayHikeActivities(hikeItems){
 		tr.appendChild(button);
 		button.addEventListener('click',function(event){
 			event.preventDefault();
-			console.log('deleteListener1');
 			deleteHikeActivity(hike);
-			console.log('deleteListener2');
 		});
 
+		button = document.createElement('button');
+		button.textContent = 'Update';
+		tr.appendChild(button);
+		button.addEventListener('click',function(event){
+			event.preventDefault();
+			createUpdateForm();
+
+			let button = document.getElementById('updateButton');
+			let form = document.getElementById('updateForm');
+			if(button){
+				button.addEventListener('click', function(event){
+				event.preventDefault();
+				let updateHike = {
+					hikerId: form.hikerId.value,
+					trailId: form.trailId.value,
+					hikeId: form.hikeId.value,
+					distance: form.distance.value,
+					hikingDate: form.hikeDate.value 
+				};
+				updateHikeActivity(updateHike);
+				});
+			}
+		});
 
 	}
 }
@@ -232,9 +273,71 @@ function deleteHikeActivity(hike){
 	xhr.setRequestHeader('Content-type', 'application/json');
 	xhr.send(JSON.stringify(hike));
 }
-//todo
-//retrieve all hikers and display in table
-//click on a hiker to display details
-//button to delete 
-//button to update, load hikers into form inputs with button to put
-//
+
+function createUpdateForm(){
+	let form = document.getElementById('updateForm');
+	while(form.firstElementChild){
+		form.removeChild(form.firstElementChild);
+	}
+	let input = document.createElement('input');
+	input.setAttribute('type', 'number');
+	input.setAttribute('name', 'hikerId');
+	input.setAttribute('placeholder', 'Hiker Id');
+	form.appendChild(input);
+	let br = document.createElement('br');
+	form.appendChild(br);
+	input = document.createElement('input');
+	input.setAttribute('type', 'number');
+	input.setAttribute('name', 'trailId');
+	input.setAttribute('placeholder', 'Trail Id');
+	form.appendChild(input);
+	br = document.createElement('br');
+	form.appendChild(br);
+	input = document.createElement('input');
+	input.setAttribute('type', 'number');
+	input.setAttribute('name', 'hikeId');
+	input.setAttribute('placeholder', 'Hike Id');
+	form.appendChild(input);
+	br = document.createElement('br');
+	form.appendChild(br);
+	input = document.createElement('input');
+	input.setAttribute('type', 'text');
+	input.setAttribute('name', 'distance');
+	input.setAttribute('placeholder', 'Distance');
+	form.appendChild(input);
+	br = document.createElement('br');
+	form.appendChild(br);
+	input = document.createElement('input');
+	input.setAttribute('type', 'date');
+	input.setAttribute('name', 'hikeDate');
+	input.setAttribute('placeholder', 'Hike Date');
+	form.appendChild(input);
+	br = document.createElement('br');
+	form.appendChild(br);
+	button = document.createElement('button');
+	button.setAttribute('type', 'button');
+	button.setAttribute('id', 'updateButton');
+	button.textContent = 'Update Hike';
+	form.appendChild(button);
+
+}
+
+//hikings/{hikerId}/{trailId}/{hikingId}/hiking
+function updateHikeActivity(updateHike){
+	let xhr = new XMLHttpRequest();
+	xhr.open('PUT', `api/hikings/${updateHike.hikerId}/${updateHike.trailId}/${updateHike.hikeId}/hiking`);
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState === 4){
+			if(xhr.status===200 || xhr.status===201){
+				let hike = JSON.parse(xhr.responseText);
+				getAllHikeActivities(hike.hiker.id);
+			}else{
+				let update = document.getElementById('updateData');
+				update.textContent = 'Fail to update hike activity!';
+			}
+		}
+	};
+	xhr.setRequestHeader('Content-type', 'application/json');
+	xhr.send(JSON.stringify(updateHike));
+}
+
