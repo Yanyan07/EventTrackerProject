@@ -15,6 +15,10 @@ This application tracked a hiker's activities. We can track a hiker's hiking dis
 ### Lessons Learned
 It was a challenge to draw the EER Diagram of different tables. I spent a while to learn this tool and make it work perfect.
 
+### How to use
+* Please click on: http://18.118.127.156:8080/HikerTracker
+* Some options will be show: Search, Add, Update, Delete. And you click on any of them to get the operation you want.
+
 ### Illustration
 * 18.118.127.156:8080/HikerTracker/api/hikings ----> Get all hiking events
 
