@@ -1,0 +1,90 @@
+<h1>Welcom to Hiker Tracker</h1>
+<br>
+<hr>
+
+<h3>Hiker List:</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Hiker ID</th>
+      <th>Hiker Name</th>
+      <th>Hiker Gender</th>
+      <th>Hike Details</th>
+      <th>Hike Distance</th>
+      <th>Favorite Trail</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let hiker of hikers">
+      <td>{{hiker.id}}</td>
+      <td>{{hiker.name}}</td>
+      <td>{{hiker.gender}}</td>
+      <td><button (click)="hikeDetails(hiker)">All Hike Details</button></td>
+      <td><button (click)="getTotalDistance(hiker)">Total Distance</button></td>
+      <td><button (click)="getFavoriteTrail(hiker)">Favorite Trail</button></td>
+    </tr>
+  </tbody>
+</table>
+<hr/>
+<br>
+
+<div *ngIf="hikeList.length > 0">
+<table>
+  <thead>
+    <tr>
+      <th>Hike ID</th>
+      <th>Hike Distance</th>
+      <th>Hike Date</th>
+      <th>Hiker ID</th>
+      <th>Trail Id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let hike of hikeList">
+      <td>{{hike.id}}</td>
+      <td>{{hike.distance}}</td>
+      <td>{{hike.hikingDate}}</td>
+      <td>{{hike.hiker.id}}</td>
+      <td>{{hike.trail.id}}</td>
+      <td><button (click)="setEditHike(hike)">Update</button></td>
+      <td><button (click)="deleteHike(hike)">Delete</button></td>
+    </tr>
+  </tbody>
+</table>
+<hr/>
+</div>
+
+<div *ngIf="distance>0">
+<ul>
+  <li><h4>The total hike distance for {{distanceHiker.name}} is: {{distance}} miles</h4></li>
+</ul>
+<hr/>
+</div>
+
+<div *ngIf="favoriteTrail.name">
+<ul>
+  <li><h4>The favorite trail of {{favoriteHiker.name}} is: {{favoriteTrail.name}}</h4></li>
+  <div><h5><img [src]="favoriteTrail.imageUrl"></h5></div>
+</ul>
+<hr/>
+</div>
+<br>
+<br>
+
+<form *ngIf='editHike'>
+  Distance:<input type='number' name= 'distance' placeholder='Distance' [(ngModel)]='editHike.distance' /><br/>
+  HikeDate:<input type='date' name= 'date' [(ngModel)]='editHike.hikingDate' /><br/>
+  HikerId:<input type='number' name= 'hikerId' placeholder='Hiker ID' [(ngModel)]='editHike.hiker.id' /><br/>
+  TrailId:<input type='number' name= 'trailID' placeholder='Trail ID' [(ngModel)]='editHike.trail.id' /><br/>
+  <button (click)="updateHike(editHike)">Save</button>
+  <button (click)="editHike=null">Cancel</button>
+</form>
+<br>
+
+<form>
+  HikerId:<input type='number' name='hikerId' placeholder='Hiker ID' [(ngModel)]='newHike.hiker.id' ><br/>
+  TrailId:<input type='number' name='trailId' placeholder='Trail ID' [(ngModel)]='newHike.trail.id' ><br/>
+  Distance:<input type='number' name='distance' placeholder='Distance' [(ngModel)]='newHike.distance' ><br/>
+  HikeDate:<input type='date' name='date' [(ngModel)]='newHike.hikingDate' ><br/>
+  <button (click)="addHike(newHike)">Add Hike</button>
+</form>
