@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: '/HikerTracker/'
+  baseUrl: 'http://localhost:8087/'
 };
 
 /*

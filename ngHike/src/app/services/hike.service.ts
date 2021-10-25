@@ -5,12 +5,15 @@ import { Hiker } from '../models/hiker';
 import { catchError } from 'rxjs/operators';
 import { SingleHiking } from '../models/single-hiking';
 import { Trail } from '../models/trail';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HikeService {
-  private baseUrl = 'http://localhost:8087/';
+  // private baseUrl = 'http://localhost:8087/';
+  private baseUrl = environment.baseUrl;
+  // private url = environment.baseUrl + 'api/hikers';
   private url = this.baseUrl + 'api/hikers';
   constructor(
     private http: HttpClient
