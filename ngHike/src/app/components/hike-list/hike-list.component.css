@@ -1,0 +1,48 @@
+
+body{
+	margin: 0;
+  background-color:  #f1f1f1;
+}
+
+/* .page{
+	width: 450px;
+	height: 400px;
+	margin: 0 auto;
+	padding-top: 100px;
+} */
+
+/* form label{
+	display: inline_block;
+	width:100px;
+	text-align: right;
+} */
+input{
+	width: 220px;
+  margin: 1px;
+  display: inline-block;
+  border: 1px solid #999999;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+th{
+	text-align: left;
+}
+
+.btn {
+  border: none; /* Remove borders */
+  color: white; /* Add a text color */
+  /* padding: 14px 28px; Add some padding */
+  cursor: pointer; /* Add a pointer cursor on mouse-over */
+}
+.info {background-color: #4CAF50;} /* Blue #46a049*/
+.info:hover {background: #00cc99;}
+.warning {background-color: #e68a00;} /* Orange */
+.warning:hover {background: #ff9800;}
+
+p{ font-family: Arial(sans serif);
+	color: black;
+}
+
+
+
